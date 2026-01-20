@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BuildPro | Civil Work App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#0f172a;color:#fff}
+
+/* LOGIN */
+#adminLogin{display:none;justify-content:center;align-items:center;height:100vh}
+.login-box{
+background:#111827;padding:30px;width:320px;border-radius:12px;
+box-shadow:0 0 20px rgba(59,130,246,.3);text-align:center
+}
+.login-box h2{color:#3b82f6;margin-bottom:10px}
+.login-box input{width:100%;padding:10px;margin:10px 0;border:none;border-radius:6px}
+.login-box button{width:100%;padding:10px;background:#3b82f6;border:none;color:#fff;border-radius:6px}
+.error{color:#f87171}
+
+/* APP */
+header{
+display:flex;justify-content:space-between;align-items:center;
+padding:15px 25px;background:#020617;border-bottom:1px solid #1e293b
+}
+header h1{color:#3b82f6}
+header button{background:#ef4444;border:none;padding:8px 14px;color:#fff;border-radius:20px}
+
+.dashboard{padding:30px}
+
+/* PROJECT */
+.project{
+background:#111827;padding:20px;border-radius:18px;max-width:600px;margin-bottom:20px
+}
+.project video{width:100%;border-radius:12px;margin:12px 0}
+.status{background:#16a34a;padding:4px 12px;border-radius:14px;font-size:12px}
+
+/* ADMIN */
+.admin-controls{
+margin-top:30px;background:#020617;padding:20px;border-radius:18px;max-width:600px
+}
+.admin-controls h3{margin-bottom:10px}
+.admin-controls input,.admin-controls button{
+margin-top:10px;width:100%;padding:10px;border:none;border-radius:6px
+}
+.admin-controls button{background:#3b82f6;color:#fff}
+
+/* VIDEOS */
+.videos{margin-top:50px;max-width:600px}
+.video-card{
+background:#111827;padding:15px;border-radius:18px;margin-top:20px
+}
+.video-card video{width:100%;border-radius:12px}
+
+/* OUR GOOD SERVICES */
+.services{
+  margin-top:50px;
+  background:#111827;
+  padding:25px;
+  border-radius:18px;
+  max-width:600px;
+}
+.services h2{
+  color:#3b82f6;
+  margin-bottom:15px;
+}
+.services ul{
+  list-style:none;
+}
+.services ul li{
+  background:#1e293b;
+  margin-bottom:10px;
+  padding:12px 15px;
+  border-radius:12px;
+  font-size:15px;
+  display:flex;
+  align-items:center;
+}
+.services ul li::before{
+  content:"✅";
+  margin-right:10px;
+}
+
+/* INSTAGRAM SECTION */
+.instagram{
+  margin-top:50px;
+  background:#111827;
+  padding:25px;
+  border-radius:18px;
+  max-width:600px;
+  text-align:center;
+}
+.instagram h2{
+  color:#3b82f6;
+  margin-bottom:15px;
+}
+.instagram a{
+  display:inline-block;
+  padding:12px 25px;
+  border-radius:25px;
+  background:#e1306c;
+  color:#fff;
+  font-weight:bold;
+  text-decoration:none;
+  transition:0.3s;
+}
+.instagram a:hover{
+  background:#c13584;
+}
+
+/* CONTACT FORM */
+.contact{
+margin-top:50px;
+background:#020617;
+padding:25px;
+border-radius:18px;
+max-width:600px
+}
+.contact h2{color:#3b82f6;margin-bottom:10px}
+.contact p{color:#cbd5f5;font-size:14px;margin-bottom:20px}
+
+.contact input,.contact textarea{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border:none;
+border-radius:8px;
+background:#111827;
+color:#fff
+}
+.contact textarea{resize:none;height:100px}
+.contact button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:25px;
+background:#22c55e;
+color:#000;
+font-weight:bold;
+cursor:pointer
+}
+.success{margin-top:10px;font-size:14px}
+
+/* CONTACT NUMBERS */
+.contact-numbers{
+margin-top:40px;
+background:#111827;
+padding:20px;
+border-radius:18px;
+max-width:600px;
+text-align:center
+}
+.contact-numbers h2{color:#3b82f6;margin-bottom:15px}
+.contact-numbers a{
+display:block;
+margin-top:10px;
+color:#22c55e;
+font-size:18px;
+font-weight:bold;
+text-decoration:none
+}
+</style>
+</head>
+
+<body>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLogin">
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <input id="adminUsername" placeholder="Username">
+    <input id="adminPassword" type="password" placeholder="Password">
+    <button onclick="adminLogin()">Login</button>
+    <p class="error" id="adminError"></p>
+  </div>
+</div>
+
+<!-- GENERAL APP -->
+<div id="app">
+
+<header>
+  <h1>BuildPro Dashboard</h1>
+  <button id="logoutBtn" onclick="adminLogout()" style="display:none;">Logout Admin</button>
+</header>
+
+<div class="dashboard">
+
+<!-- PROJECT -->
+<div class="project">
+  <span class="status">Completed</span>
+  <h3>Residential Building /chawl– Mumbai(Kalyan,Dombivli,Kopar,Kurla,Thane,Aambarnath)</h3>
+  <video id="projectVideo" controls>
+    <source src="civil.mp4" type="video/mp4">
+  </video>
+  <p>Duration: Aug – Dec 2024</p>
+</div>
+
+<!-- ADMIN CONTROLS (Only for admin) -->
+<div class="admin-controls" id="adminControls" style="display:none;">
+  <h3>Admin – Upload Completed Work Video</h3>
+  <input type="file" accept="video/*" onchange="uploadVideo(this)">
+</div>
+
+<!-- VIDEO GALLERY -->
+<div class="videos">
+  <h2>Completed Work Videos</h2>
+  <div class="video-card">
+    <video id="galleryVideo" controls>
+      <source src="civil.mp4" type="video/mp4">
+    </video>
+    <p>Residential Building /chawl– Mumbai(Kalyan,Dombivli,Kopar,Kurla,Thane,Aambarnath)</p>
+  </div>
+</div>
+
+<!-- OUR GOOD SERVICES -->
+<div class="services">
+  <h2>Our Good Services</h2>
+  <ul>
+    <li>We use high-quality materials for all projects.</li>
+    <li>Our work is excellent and delivered within a reasonable budget.</li>
+    <li>Experienced team with 15+ years in the field.</li>
+  </ul>
+</div>
+
+<!-- INSTAGRAM CHANNEL -->
+<div class="instagram">
+  <h2>Visit Our Instagram Channel</h2>
+  <a href="https://www.instagram.com/rk__.developers?igsh=anJ3Nm80dnF0Nmh1" target="_blank">➡️ Go to Instagram</a>
+</div>
+
+<!-- CONTACT FORM -->
+<div class="contact">
+  <h2>Contact for Work Deal</h2>
+  <p>Send your project details. Email will open automatically.</p>
+
+  <input id="cname" placeholder="Your Name">
+  <input id="cphone" placeholder="Mobile Number">
+  <input id="cemail" placeholder="Your Email">
+  <textarea id="cmsg" placeholder="Describe your project requirement"></textarea>
+
+  <button onclick="submitDeal()">Send Request</button>
+  <p class="success" id="success"></p>
+</div>
+
+<!-- CONTACT NUMBERS -->
+<div class="contact-numbers">
+  <h2>Fix Meeting – Call Us</h2>
+  <a href="tel:9819431977">📞 9819431977</a>
+  <a href="tel:8591577294">📞 8591577294</a>
+</div>
+
+</div>
+</div>
+
+<script>
+// ADMIN LOGIN LOGIC
+const adminLoginDiv=document.getElementById("adminLogin");
+const adminUsername=document.getElementById("adminUsername");
+const adminPassword=document.getElementById("adminPassword");
+const adminError=document.getElementById("adminError");
+const adminControls=document.getElementById("adminControls");
+const logoutBtn=document.getElementById("logoutBtn");
+
+function adminLogin(){
+  if(adminUsername.value==="admin" && adminPassword.value==="1234"){
+    localStorage.setItem("adminLogin","true");
+    showAdminControls();
+  }else{
+    adminError.innerText="Invalid admin credentials";
+  }
+}
+
+function showAdminControls(){
+  adminLoginDiv.style.display="none";
+  adminControls.style.display="block";
+  logoutBtn.style.display="inline-block";
+}
+
+function adminLogout(){
+  localStorage.removeItem("adminLogin");
+  adminControls.style.display="none";
+  logoutBtn.style.display="none";
+  adminLoginDiv.style.display="flex";
+}
+
+// KEEP ADMIN LOGGED IN
+if(localStorage.getItem("adminLogin")) showAdminControls();
+
+// VIDEO UPLOAD (Admin only)
+function uploadVideo(input){
+  const file=input.files[0];
+  if(!file) return;
+  const url=URL.createObjectURL(file);
+  projectVideo.src=url;
+  galleryVideo.src=url;
+}
+
+// CONTACT FORM
+function submitDeal(){
+  const name=cname.value;
+  const phone=cphone.value;
+  const email=cemail.value;
+  const msg=cmsg.value;
+
+  if(!name || !phone || !msg){
+    success.style.color="#f87171";
+    success.innerText="Please fill all required fields";
+    return;
+  }
+
+  const subject=encodeURIComponent("New Civil Work Deal Request");
+  const body=encodeURIComponent(
+    "New Work Deal Enquiry\n\n"+
+    "Name: "+name+"\n"+
+    "Phone: "+phone+"\n"+
+    "Email: "+email+"\n\n"+
+    "Project Details:\n"+msg
+  );
+
+  window.location.href=
+    "mailto:karandighule33@gmail.com?subject="+subject+"&body="+body;
+
+  success.style.color="#22c55e";
+  success.innerText="Email opened. Please click SEND to complete.";
+}
+</script>
+
+</body>
+</html>
